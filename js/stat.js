@@ -29,28 +29,27 @@ let getMaxElement = function (arr) {
   return maxElement;
 };
 
-/* let getColor = function (players) {
-  for (let i = 0; i < players.length; i++) {
-    if (players[i] === `Вы`) {
-      return 'rgba(255, 0, 0, 1)';
-    }
+let getColor = function (player) {
+  if (player === `Вы`) {
+    return `rgba(255, 0, 0, 1)`;
   }
-  return '#000';
-}; */
+  let x = (Math.random() * 100) + `%`;
+  return `hsl(240, ${x}, 50%)`;
+};
 
 window.renderStatistics = function (ctx, players, times) {
-  ctx.font = '16px PT Mono';
-  renderCloud(ctx, CLOUD_X + CLOUD_GAP, CLOUD_Y + CLOUD_GAP, 'rgba(0, 0, 0, 0.3');
-  renderCloud(ctx, CLOUD_X, CLOUD_Y, '#fff');
+  ctx.font = `16px PT Mono`;
+  renderCloud(ctx, CLOUD_X + CLOUD_GAP, CLOUD_Y + CLOUD_GAP, `rgba(0, 0, 0, 0.3`);
+  renderCloud(ctx, CLOUD_X, CLOUD_Y, `#fff`);
 
-  ctx.fillStyle = '#000';
-  ctx.fillText('Ура вы победили!', CLOUD_X + GAP_SMALL, GAP_SMALL + TEXT_HEIGHT + (GAP_SMALL) * 0);
-  ctx.fillText('Список результатов:', CLOUD_X + GAP_SMALL, GAP_SMALL + TEXT_HEIGHT + (GAP_SMALL) * 1);
+  ctx.fillStyle = `#000`;
+  ctx.fillText(`Ура вы победили!`, CLOUD_X + GAP_SMALL, GAP_SMALL + TEXT_HEIGHT + (GAP_SMALL) * 0);
+  ctx.fillText(`Список результатов:`, CLOUD_X + GAP_SMALL, GAP_SMALL + TEXT_HEIGHT + (GAP_SMALL) * 1);
 
   let maxTime = getMaxElement(times);
 
   for (let i = 0; i < players.length; i++) {
-    ctx.fillStyle = '#000';
+    ctx.fillStyle = `#000`;
     ctx.fillText(
         Math.round(times[i]),
         CLOUD_X + GAP + (GAP + BAR_WIDTH) * i,
@@ -61,13 +60,7 @@ window.renderStatistics = function (ctx, players, times) {
         CLOUD_X + GAP + (GAP + BAR_WIDTH) * i,
         CLOUD_HEIGHT
     );
-    let getColor = function (players) {
-      if (players[i] === 'Вы') {
-        return 'rgba(255, 0, 0, 1)';
-      }
-      return '#000';
-    };
-    getColor(players);
+    ctx.fillStyle = getColor(players[i]);
     ctx.fillRect(
         CLOUD_X + GAP + (GAP + BAR_WIDTH) * i,
         BAR_VERT_GAP + BAR_HEIGHT - (BAR_HEIGHT * times[i]) / maxTime,
